@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+label {
+  color: white;
+  margin-right: 5px;  
+}
