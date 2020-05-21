@@ -2,11 +2,18 @@
   color: white;
 }
 
-label {
+label, select {
   display: block;
   padding: 5px;
+  margin: 5px;
 }
 
 input {
   padding: 2px;
+}
+
+button {
+  display: block;
+  padding: 2px;
+  margin: 5px;
 }
