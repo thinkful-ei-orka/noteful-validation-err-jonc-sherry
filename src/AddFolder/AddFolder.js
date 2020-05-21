@@ -8,10 +8,6 @@ class AddFolder extends React.Component {
   state = {
     name: '',
     touched: false,
-    textError: function() {
-      this.touched = true
-      this.validateFolderName()
-    }
   }
   static contextType = ApiContext;
 

@@ -1,0 +1,12 @@
+.add-note-form {
+  color: white;
+}
+
+label {
+  display: block;
+  padding: 5px;
+}
+
+input {
+  padding: 2px;
+}
