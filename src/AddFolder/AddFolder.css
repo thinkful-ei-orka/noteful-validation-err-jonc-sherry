@@ -3,6 +3,13 @@
   margin: 0;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 10px;
+}
+
 label, p {
   color: white;
   margin-right: 5px;  
