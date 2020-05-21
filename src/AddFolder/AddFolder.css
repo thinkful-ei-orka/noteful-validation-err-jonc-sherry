@@ -3,7 +3,7 @@
   margin: 0;
 }
 
-label {
+label, p {
   color: white;
   margin-right: 5px;  
 }
