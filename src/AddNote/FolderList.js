@@ -6,7 +6,7 @@ class FolderList extends React.Component {
 
   makeFolders(folders) {
     return folders.map((folder) => (
-      <option key={folder.id} onChange={(id) => console.log(id)}>
+      <option key={folder.id} value={folder.id}>
         {folder.name}
       </option>
     ));
@@ -14,9 +14,10 @@ class FolderList extends React.Component {
 
   render() {
     console.log(this.props)
+    console.log(this.context)
     const { folders } = this.context;
     console.log(folders);
-    return <select>{this.makeFolders(folders)}</select>;
+    return <select onChange={(e) => console.log(e.target.value)}>{this.makeFolders(folders)}</select>;
   }
 }
 

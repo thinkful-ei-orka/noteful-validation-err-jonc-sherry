@@ -9,7 +9,7 @@ class AddNote extends React.Component {
   state = {
     name: '',
     content: '',
-    folderName: '',
+    folderName: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1',
   };
 
   static contextType = ApiContext;
@@ -30,6 +30,7 @@ class AddNote extends React.Component {
   };
 
   handleAddNote = () => {
+    console.log(this.props.history)
     this.props.history.push(`/`);
   };
 
@@ -45,6 +46,7 @@ class AddNote extends React.Component {
         name: this.state.name,
         content: this.state.content,
         folder: this.state.folderName,
+        modified: new Date(),
       }),
     })
       .then((res) => {
