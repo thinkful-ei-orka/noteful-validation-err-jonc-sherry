@@ -3,44 +3,93 @@ import ApiContext from '../ApiContext';
 import config from '../config';
 import ValidationError from '../ValidationError';
 import FolderList from './FolderList';
-import './AddNote.css'
+import './AddNote.css';
 
 class AddNote extends React.Component {
   state = {
     name: '',
-    content: ''
-  }
+    content: '',
+    folderName: '',
+  };
 
   static contextType = ApiContext;
 
-  setName = newName => {
-    this.setState({name: newName})
-  }
+  folderNameOnClick = (name) => {
+    this.setState({
+      folderName: name,
+    });
+  };
 
-  setContent = newContent => {
-    this.setState({content: newContent})
-  }
+  setName = (newName) => {
+    this.setState({ name: newName });
+  };
 
-  // handleAddNoteClick = () => {
+  setContent = (newContent) => {
+    this.setState({ content: newContent });
+  };
 
-  // }
+  handleAddNote = () => {
+    this.props.history.push(`/`);
+  };
+
+  handleAddNoteClick = (e) => {
+    e.preventDefault();
+    fetch(`${config.API_ENDPOINT}/notes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        content: this.state.content,
+        folder: this.state.folderName,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          res.json().then((e) => Promise.reject(e));
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        this.context.addNote(data);
+        this.handleAddNote();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   render() {
     return (
-      <form onSubmit={e => this.handleAddNoteClick(e)}>
-          <fieldset className="add-note-form">
-            <legend>Add New Note</legend>
-            <label htmlFor="note-name">Note Name</label>
-            <input type="text" name="note-name" id="note-name" placeholder="Note Name" value={this.state.name} onChange={(e) => this.setName(e.target.value)}></input>
-            <label htmlFor="note-content">Note Content</label>
-            <textarea name="note-content" id="note-content" placeholder="Content" defaultValue={this.state.content} onChange={(e) => this.setContent(e.target.value)} />
-            <FolderList />
-            <button>Add Note</button>
-          </fieldset>
+      <form onSubmit={(e) => this.handleAddNoteClick(e)}>
+        <fieldset className='add-note-form'>
+          <legend>Add New Note</legend>
+          <label htmlFor='note-name'>Note Name</label>
+          <input
+            type='text'
+            name='note-name'
+            id='note-name'
+            placeholder='Note Name'
+            value={this.state.name}
+            onChange={(e) => this.setName(e.target.value)}
+          />
+          <label htmlFor='note-content'>Note Content</label>
+          <textarea
+            name='note-content'
+            id='note-content'
+            placeholder='Content'
+            defaultValue={this.state.content}
+            onChange={(e) => this.setContent(e.target.value)}
+          />
+          <FolderList folderNameOnClick={this.folderNameOnClick} />
+          <button>Add Note</button>
+        </fieldset>
       </form>
-
-    )
+    );
   }
 }
 
-export default AddNote
+export default AddNote;
