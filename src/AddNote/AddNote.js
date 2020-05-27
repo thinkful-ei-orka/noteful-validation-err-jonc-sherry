@@ -9,13 +9,15 @@ class AddNote extends React.Component {
   state = {
     name: '',
     content: '',
+    folderName: '',
+  };
+  static defaultProps = {
     folderName: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1',
   };
-
   static contextType = ApiContext;
 
   folderNameOnClick = (name) => {
-    console.log('folderNameOnClick ran')
+    console.log('folderNameOnClick ran');
     this.setState({
       folderName: name,
     });
@@ -29,8 +31,8 @@ class AddNote extends React.Component {
     this.setState({ content: newContent });
   };
 
-  handleAddNote = () => {
-    console.log(this.props.history)
+  handleNoteRefresh = () => {
+    console.log(this.props.history);
     this.props.history.push(`/`);
   };
 
@@ -45,7 +47,7 @@ class AddNote extends React.Component {
       body: JSON.stringify({
         name: this.state.name,
         content: this.state.content,
-        folder: this.state.folderName,
+        folderId: this.state.folderName,
         modified: new Date(),
       }),
     })
@@ -59,7 +61,7 @@ class AddNote extends React.Component {
         console.log(data);
 
         this.context.addNote(data);
-        this.handleAddNote();
+        this.handleNoteRefresh();
       })
       .catch((err) => {
         console.log(err);
