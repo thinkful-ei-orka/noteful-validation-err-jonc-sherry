@@ -9,13 +9,22 @@ class AddNote extends React.Component {
   state = {
     name: '',
     content: '',
+    folderName: '',
+  };
+  static defaultProps = {
     folderName: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1',
   };
-
   static contextType = ApiContext;
 
+  validateNote = () => {
+    let noteName = this.state.name.trim();
+    let noteContent = this.state.content.trim();
+    if (noteName.length < 1 || noteContent.length < 1) {
+      return 'Please fill all boxes';
+    }
+  }
+
   folderNameOnClick = (name) => {
-    console.log('folderNameOnClick ran')
     this.setState({
       folderName: name,
     });
@@ -29,9 +38,13 @@ class AddNote extends React.Component {
     this.setState({ content: newContent });
   };
 
+
   handleAddNote = () => {
-    console.log(this.props.history)
     this.props.history.history(`/`);
+  }
+
+  handleNoteRefresh = () => {
+    this.props.history.push(`/`);
   };
 
   handleAddNoteClick = (e) => {
@@ -45,7 +58,7 @@ class AddNote extends React.Component {
       body: JSON.stringify({
         name: this.state.name,
         content: this.state.content,
-        folder: this.state.folderName,
+        folderId: this.state.folderName,
         modified: new Date(),
       }),
     })
@@ -56,10 +69,8 @@ class AddNote extends React.Component {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
-
         this.context.addNote(data);
-        this.handleAddNote();
+        this.handleNoteRefresh();
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +78,7 @@ class AddNote extends React.Component {
   };
 
   render() {
+    const noteError = this.validateNote();
     return (
       <form onSubmit={(e) => this.handleAddNoteClick(e)}>
         <fieldset className='add-note-form'>
@@ -89,7 +101,15 @@ class AddNote extends React.Component {
             onChange={(e) => this.setContent(e.target.value)}
           />
           <FolderList folderNameOnClick={this.folderNameOnClick} />
-          <button>Add Note</button>
+          <ValidationError message={noteError}/>
+          <button
+            type="submit"
+            className="add_note"
+            disabled={
+              this.validateNote()
+            }>
+            Add Note
+          </button>
         </fieldset>
       </form>
     );

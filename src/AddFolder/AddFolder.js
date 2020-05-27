@@ -3,6 +3,7 @@ import ApiContext from '../ApiContext';
 import config from '../config';
 import ValidationError from '../ValidationError';
 import './AddFolder.css';
+import PropTypes from 'prop-types';
 
 class AddFolder extends React.Component {
   state = {
@@ -13,7 +14,6 @@ class AddFolder extends React.Component {
 
   validateFolderName = () => {
     let folderName = this.state.name.trim();
-    console.log(folderName);
     if (folderName.length < 1) {
       return 'A name is required';
     }
@@ -51,20 +51,28 @@ class AddFolder extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const folderError = this.validateFolderName();
-    console.log(folderError)
-    console.log('rendered boy')
     return (
       <form onSubmit={(e) => this.handleAddFolderClick(e)}>
         <label htmlFor="add-folder">Add Folder</label>
         <input name="add-folder" id="add-folder" value={this.state.name} type="text" placeholder="Folder Name" onChange={e => this.setFolderName(e.target.value)} />
         {this.state.touched && <p className="error"><ValidationError message={folderError} /> </p>}
-        <button>Add Folder</button>
+        <button
+          type="submit"
+          className="add_folder_button"
+          disabled={
+            this.validateFolderName()
+          }>
+            Add Folder
+          </button>
       </form>
     )
   }
 
+}
+
+AddFolder.propTypes = {
+  folderName: PropTypes.string.isRequired,
 }
 
 export default AddFolder

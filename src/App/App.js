@@ -50,12 +50,7 @@ class App extends Component {
     });
   };
   handleAddNote = (newNote) => {
-    const newNoteList = [
-      {
-        ...this.state.notes,
-      },
-      newNote,
-    ];
+    const newNoteList = [...this.state.notes, newNote];
     this.setState({
       notes: newNoteList,
     });

@@ -13,11 +13,15 @@ class FolderList extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.context)
+    console.log(this.props);
+    console.log(this.context);
     const { folders } = this.context;
     console.log(folders);
-    return <select onChange={(e) => console.log(e.target.value)}>{this.makeFolders(folders)}</select>;
+    return (
+      <select required onChange={(e) => this.props.folderNameOnClick(e.target.value)}>
+        {this.makeFolders(folders)}
+      </select>
+    );
   }
 }
 
