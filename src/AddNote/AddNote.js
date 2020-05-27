@@ -31,7 +31,7 @@ class AddNote extends React.Component {
 
   handleAddNote = () => {
     console.log(this.props.history)
-    this.props.history.push(`/`);
+    this.props.history.history(`/`);
   };
 
   handleAddNoteClick = (e) => {
