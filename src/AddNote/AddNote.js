@@ -15,6 +15,7 @@ class AddNote extends React.Component {
   static contextType = ApiContext;
 
   folderNameOnClick = (name) => {
+    console.log('folderNameOnClick ran')
     this.setState({
       folderName: name,
     });
@@ -34,6 +35,7 @@ class AddNote extends React.Component {
 
   handleAddNoteClick = (e) => {
     e.preventDefault();
+    this.folderNameOnClick();
     fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
