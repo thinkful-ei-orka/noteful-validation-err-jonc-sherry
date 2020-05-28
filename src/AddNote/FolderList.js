@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiContext from '../ApiContext';
+import PropTypes from 'prop-types';
 
 class FolderList extends React.Component {
   static contextType = ApiContext;
@@ -13,16 +14,17 @@ class FolderList extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.context);
     const { folders } = this.context;
-    console.log(folders);
     return (
       <select required onChange={(e) => this.props.folderNameOnClick(e.target.value)}>
         {this.makeFolders(folders)}
       </select>
     );
   }
+}
+
+FolderList.propTypes = {
+  folderNameOnClick: PropTypes.func.isRequired,
 }
 
 export default FolderList;
