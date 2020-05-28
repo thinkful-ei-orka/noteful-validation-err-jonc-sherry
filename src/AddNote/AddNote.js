@@ -4,6 +4,7 @@ import config from '../config';
 import ValidationError from '../ValidationError';
 import FolderList from './FolderList';
 import './AddNote.css';
+import PropTypes from 'prop-types';
 
 class AddNote extends React.Component {
   state = {
@@ -114,6 +115,10 @@ class AddNote extends React.Component {
       </form>
     );
   }
+}
+
+AddNote.propTypes = {
+  folderName: PropTypes.string.isRequired,
 }
 
 export default AddNote;
