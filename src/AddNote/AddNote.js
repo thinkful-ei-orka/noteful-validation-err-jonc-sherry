@@ -119,6 +119,20 @@ class AddNote extends React.Component {
 
 AddNote.propTypes = {
   folderName: PropTypes.string.isRequired,
+  notes: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    modified: PropTypes.instanceOf(Date).isRequired,
+    folderId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }),
+  folders: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  deleteNote: PropTypes.func,
+  addFolder: PropTypes.func,
+  addNote: PropTypes.func,
 }
 
 export default AddNote;

@@ -25,6 +25,20 @@ class FolderList extends React.Component {
 
 FolderList.propTypes = {
   folderNameOnClick: PropTypes.func.isRequired,
+  notes: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    modified: PropTypes.instanceOf(Date),
+    folderId: PropTypes.string,
+    content: PropTypes.string,
+  }),
+  folders: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  deleteNote: PropTypes.func,
+  addFolder: PropTypes.func,
+  addNote: PropTypes.func,
 }
 
 export default FolderList;

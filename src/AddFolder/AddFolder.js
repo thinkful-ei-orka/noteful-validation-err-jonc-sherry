@@ -72,7 +72,7 @@ class AddFolder extends React.Component {
 }
 
 AddFolder.propTypes = {
-  folderName: PropTypes.string.isRequired,
+  folderName: PropTypes.string,
 }
 
 export default AddFolder

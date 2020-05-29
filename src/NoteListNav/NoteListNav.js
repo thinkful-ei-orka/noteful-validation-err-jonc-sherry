@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext'
 import { countNotesForFolder } from '../notes-helpers'
+import PropTypes from 'prop-types'
 import './NoteListNav.css'
 
 export default class NoteListNav extends React.Component {
@@ -43,4 +44,21 @@ export default class NoteListNav extends React.Component {
       </div>
     )
   }
+}
+
+NoteListNav.propTypes = {
+  notes: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    modified: PropTypes.instanceOf(Date).isRequired,
+    folderId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }),
+  folders: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  deleteNote: PropTypes.func,
+  addFolder: PropTypes.func,
+  addNote: PropTypes.func,
 }
